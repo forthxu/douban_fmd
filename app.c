@@ -142,30 +142,36 @@ void daemonize(const char *log_file, const char *err_file)
     int fd0, fd1, fd2;
 
     if ((pid = fork()) < 0) {
-        perror("fork");
+        perror("fork");//fork错误
     }
     else if(pid > 0) {
-        exit(0);
+        exit(0);//父进程退出
     }
-
+	
+	setsid(); //使子进程成为组长
+	
     if ((pid = fork()) < 0) {
         perror("fork");
     }
     else if(pid > 0) {
-        exit(0);
+        exit(0);//再次退出，使进程不是组长，这样进程就不会打开控制终端
     }
 
     chdir("/");
+	umask(0);//重设文件创建的掩码
 
+	//关闭进程打开的文件句柄
+	// for(i=0;i<NOFILE;i++)
+		// close(i);
     close(STDIN_FILENO);
     close(STDOUT_FILENO);
     close(STDERR_FILENO);
 
     fd0 = open("/dev/null", O_RDONLY);
-    fd1 = open(log_file, O_WRONLY | O_TRUNC | O_CREAT, FILE_MODE);
+    fd1 = open(log_file, O_WRONLY | O_TRUNC | O_CREAT, FILE_MODE);//写文件 | 若文件存在，则长度被截为0，属性不变 | 若文件存在，此标志无用；若不存在，建新文件
     fd2 = open(err_file, O_WRONLY | O_TRUNC | O_CREAT, FILE_MODE);
 
-    if (fd0 != STDIN_FILENO || fd1 != STDOUT_FILENO || fd2 != STDERR_FILENO) {
+    if (fd0 != STDIN_FILENO || fd1 != STDOUT_FILENO || fd2 != STDERR_FILENO) {//进程打开的句柄id依次增加0
         fprintf(stderr, "wrong fds\n");
         exit(1);
     }
@@ -236,7 +242,7 @@ int main() {
     strcpy(err_file, pwd->pw_dir);
     strcat(err_file, "/.fmd/fmd.err");
 
-    daemonize(log_file, err_file);
+    daemonize(log_file, err_file);//设为守护进程
 
     fm_playlist_config_t playlist_conf = {
         .channel = 1,

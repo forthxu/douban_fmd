@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define JSON_HAS_GET_EX 1
+
 typedef struct {
     char data[8192];
     size_t length;
@@ -27,6 +29,37 @@ static fm_song_t* fm_song_parse_json(struct json_object *obj)
 {
     fm_song_t *song = (fm_song_t*) malloc(sizeof(fm_song_t));
     const char json_escape = '\"';
+
+#if JSON_HAS_GET_EX
+    json_object *obj_str;
+    
+    json_object_object_get_ex(obj, "title", &obj_str);    
+    song->title = escape(json_object_get_string(obj_str), json_escape);
+    
+    json_object_object_get_ex(obj, "artist", &obj_str);
+    song->artist = escape(json_object_get_string(obj_str), json_escape);
+    
+    json_object_object_get_ex(obj, "albumtitle", &obj_str);
+    song->album = escape(json_object_get_string(obj_str), json_escape);
+    
+    json_object_object_get_ex(obj, "public_time", &obj_str);
+    song->pubdate = json_object_get_int(obj_str);
+    
+    json_object_object_get_ex(obj, "picture", &obj_str);
+    song->cover = escape(json_object_get_string(obj_str), json_escape);
+    
+    json_object_object_get_ex(obj, "album", &obj_str);
+    song->url = escape(json_object_get_string(obj_str), json_escape);
+    
+    json_object_object_get_ex(obj, "url", &obj_str);
+    song->audio = escape(json_object_get_string(obj_str), json_escape);
+    
+    json_object_object_get_ex(obj, "sid", &obj_str);
+    song->sid = json_object_get_int(obj_str);
+    
+    json_object_object_get_ex(obj, "like", &obj_str);
+    song->like = json_object_get_int(obj_str);
+#else
     song->title = escape(json_object_get_string(json_object_object_get(obj, "title")), json_escape);
     song->artist = escape(json_object_get_string(json_object_object_get(obj, "artist")), json_escape);
     song->album = escape(json_object_get_string(json_object_object_get(obj, "albumtitle")), json_escape);
@@ -36,6 +69,9 @@ static fm_song_t* fm_song_parse_json(struct json_object *obj)
     song->audio = escape(json_object_get_string(json_object_object_get(obj, "url")), json_escape);
     song->sid = json_object_get_int(json_object_object_get(obj, "sid"));
     song->like = json_object_get_int(json_object_object_get(obj, "like"));
+#endif
+
+    printf("titile:%s\n",song->title);
     if (song->sid == 0) {
         fm_song_free(song);
         song = NULL;
@@ -128,14 +164,37 @@ static void fm_playlist_clear(fm_playlist_t *pl)
 
 static void fm_playlist_parse_json(fm_playlist_t *pl, struct json_object *obj)
 {
+    json_object *obj_str;
     int i;
+#if JSON_HAS_GET_EX
+    json_object_object_get_ex(obj, "r", &obj_str);    
+    int ret = json_object_get_int(obj_str);
+#else
     int ret = json_object_get_int(json_object_object_get(obj, "r"));
+#endif
+    printf("Playlist get status %d \n", ret);
+
     if (ret != 0) {
+#if JSON_HAS_GET_EX
+        json_object_object_get_ex(obj, "err", &obj_str);
+        fprintf(stderr, "API error: %s\n", json_object_get_string(obj_str));
+#else
         fprintf(stderr, "API error: %s\n", json_object_get_string(json_object_object_get(obj, "err")));
+#endif
+        
         exit(ret);
     }
     printf("Playlist parsing new API response\n");
-    array_list *songs = json_object_get_array(json_object_object_get(obj, "song"));
+
+    array_list *songs;
+#if JSON_HAS_GET_EX
+        json_object_object_get_ex(obj, "song", &obj_str);
+#else
+        obj_str=json_object_object_get(obj, "song");
+#endif
+    songs = json_object_get_array(obj_str);
+    
+    printf("Playlist have %d song\n", songs->length);
     for (i = songs->length - 1; i >= 0; i--) {
         struct json_object *o = (struct json_object*) array_list_get_idx(songs, i);
         fm_song_t *song = fm_song_parse_json(o);
@@ -193,6 +252,7 @@ static struct json_object* fm_playlist_send_long_report(fm_playlist_t *pl, int s
             pl->api, pl->app_name, pl->version, pl->config.uid, pl->config.expire, pl->config.token, pl->config.channel,
             sid, act, fm_playlist_history_str(pl), pl->config.kbps);
     printf("Playlist request: %s\n", url);
+    sprintf(url,"http://douban.fm/j/mine/playlist?type=n&sid=&pt=0.0&channel=1&from=radio&r=411ef8fc02");
 
     memset(curl_buffer.data, 0, sizeof(curl_buffer.data));
     curl_buffer.length = 0;
@@ -200,8 +260,12 @@ static struct json_object* fm_playlist_send_long_report(fm_playlist_t *pl, int s
     curl_easy_setopt(pl->curl, CURLOPT_URL, url);
     curl_easy_setopt(pl->curl, CURLOPT_WRITEFUNCTION, append_to_buffer);
     curl_easy_setopt(pl->curl, CURLOPT_WRITEDATA, &curl_buffer);
+    curl_easy_setopt(pl->curl, CURLOPT_COOKIEFILE, "/tmp/cookie.txt");
+    curl_easy_setopt(pl->curl, CURLOPT_COOKIE, "/tmp/cookie.txt");
+    curl_easy_setopt(pl->curl, CURLOPT_COOKIEJAR, "/tmp/cookie.txt");
     curl_easy_perform(pl->curl);
-
+    //forthxu
+    // printf("%s\n",curl_buffer.data);
     return json_tokener_parse(curl_buffer.data);
 }
 
@@ -216,6 +280,9 @@ static void fm_playlist_send_short_report(fm_playlist_t *pl, int sid, char act)
 
     curl_easy_setopt(pl->curl, CURLOPT_URL, url);
     curl_easy_setopt(pl->curl, CURLOPT_WRITEFUNCTION, drop_buffer);
+    curl_easy_setopt(pl->curl, CURLOPT_COOKIEFILE, "/tmp/cookie.txt");
+    curl_easy_setopt(pl->curl, CURLOPT_COOKIE, "/tmp/cookie.txt");
+    curl_easy_setopt(pl->curl, CURLOPT_COOKIEJAR, "/tmp/cookie.txt");
     curl_easy_setopt(pl->curl, CURLOPT_WRITEDATA, NULL);
     curl_easy_perform(pl->curl);
 }

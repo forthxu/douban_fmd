@@ -93,7 +93,7 @@ int fm_player_open(fm_player_t *pl, fm_player_config_t *config)
     ao_fmt.channels = config->channels;
     ao_fmt.bits = mpg123_encsize(config->encoding) * 8;
     ao_fmt.byte_format = AO_FMT_NATIVE;
-    ao_fmt.matrix = 0;
+    // ao_fmt.matrix = 0;
 
     int driver = ao_driver_id(config->driver);
     if (driver == -1) {
@@ -146,6 +146,11 @@ void fm_player_set_url(fm_player_t *pl, const char *url)
     if (pl->status != FM_PLAYER_STOP) {
         fm_player_stop(pl);
     }
+    //forthxu
+    curl_easy_setopt(pl->curl, CURLOPT_COOKIEFILE, "/tmp/cookie.txt");
+    curl_easy_setopt(pl->curl, CURLOPT_COOKIE, "/tmp/cookie.txt");
+    curl_easy_setopt(pl->curl, CURLOPT_COOKIEJAR, "/tmp/cookie.txt");
+    
     curl_easy_setopt(pl->curl, CURLOPT_URL, url);
 }
 
