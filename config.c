@@ -20,11 +20,11 @@ int fm_config_parse(const char *file, fm_config_t *confs, int length)
         return -1;
     }
 
-    while (fgets(line, sizeof(line), f) != NULL) {
+    while (fgets(line, sizeof(line), f) != NULL) {//fets读取一行最多sizeof(line)-1个字符
         trim(line);
         if (line[0] == '[') {
-            strcpy(section, line + 1);
-            section[strlen(section) - 1] = '\0';
+            strcpy(section, line + 1);//从[之后开始拷贝
+		section[strlen(section) - 1] = '\0';//最后]改为\0
         }
         else if (strlen(line) > 0) {
             char *p = split(line, '=');

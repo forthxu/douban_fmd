@@ -161,8 +161,31 @@ void daemonize(const char *log_file, const char *err_file)
 	umask(0);//重设文件创建的掩码
 
 	//关闭进程打开的文件句柄
-	// for(i=0;i<NOFILE;i++)
+	// for(i=0;i<3;i++)
 		// close(i);
+	
+    // if ((fd = open("/dev/null", O_RDWR, 0)) != -1) {/*重定向标准输入输出到/dev/null*/
+        // if(dup2(fd, STDIN_FILENO) < 0) {/*复制STDIN_FILENO、STDOUT_FILENO和STDERR_FILENO的描述符到fd*/
+            // perror("dup2 stdin");
+            // return (-1);
+        // }
+        // if(dup2(fd, STDOUT_FILENO) < 0) {
+            // perror("dup2 stdout");
+            // return (-1);
+        // }
+        // if(dup2(fd, STDERR_FILENO) < 0) {
+            // perror("dup2 stderr");
+            // return (-1);
+        // }
+
+        // if (fd > STDERR_FILENO) {
+            // if(close(fd) < 0) {
+                // perror("close");
+                // return (-1);
+            // }
+        // }
+    // }
+	
     close(STDIN_FILENO);
     close(STDOUT_FILENO);
     close(STDERR_FILENO);
