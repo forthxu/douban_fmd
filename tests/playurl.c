@@ -17,7 +17,6 @@ size_t play_stream(void *buffer, size_t size, size_t nmemb, void *userp)
     ao_sample_format format;
     int channels, encoding;
     long rate;
-	printf("start");//网易音乐 错误 (核心已转储) 错误 http://m2.music.126.net/mlbxi57d3o_0FiZGMaQ0kQ==/1100611139412606.mp3
 
     mpg123_feed(mh, (const unsigned char*) buffer, size * nmemb);
     do {
@@ -29,7 +28,7 @@ size_t play_stream(void *buffer, size_t size, size_t nmemb, void *userp)
                 format.rate = rate;
                 format.channels = channels;
                 format.byte_format = AO_FMT_NATIVE;
-                format.matrix = 0;
+                format.matrix = 0;//新版mpg123 结构体ao_sample_format去掉matrix：错误 (核心已转储)
                 dev = ao_open_live(ao_default_driver_id(), &format, NULL);
                 break;
             case MPG123_OK:
