@@ -1,0 +1,423 @@
+//curl -d "app_name=radio_desktop_win&version=100&email=gule10@163.com&password=19870623" http://www.douban.com/j/app/login
+{
+    "user_id": "19769329",
+    "err": "ok",
+    "token": "56861dac33",
+    "expire": "1440396643",
+    "r": 0,
+    "user_name": "st.sail",
+    "email": "gule10@163.com"
+}
+
+//curl http://www.doubhttp://www.douban.com/j/app/radio/channels
+{
+    "channels": [
+        {
+            "name_en": "Personal Radio",
+            "seq_id": 0,
+            "abbr_en": "My",
+            "name": "私人兆赫",
+            "channel_id": 0
+        },
+        {
+            "name": "华语",
+            "seq_id": 0,
+            "abbr_en": "",
+            "channel_id": "1",
+            "name_en": ""
+        },
+        {
+            "name": "欧美",
+            "seq_id": 1,
+            "abbr_en": "",
+            "channel_id": "2",
+            "name_en": ""
+        },
+        {
+            "name": "七零",
+            "seq_id": 2,
+            "abbr_en": "",
+            "channel_id": "3",
+            "name_en": ""
+        },
+        {
+            "name": "八零",
+            "seq_id": 3,
+            "abbr_en": "",
+            "channel_id": "4",
+            "name_en": ""
+        },
+        {
+            "name": "九零",
+            "seq_id": 4,
+            "abbr_en": "",
+            "channel_id": "5",
+            "name_en": ""
+        },
+        {
+            "name": "粤语",
+            "seq_id": 5,
+            "abbr_en": "",
+            "channel_id": "6",
+            "name_en": ""
+        },
+        {
+            "name": "摇滚",
+            "seq_id": 6,
+            "abbr_en": "",
+            "channel_id": "7",
+            "name_en": ""
+        },
+        {
+            "name": "民谣",
+            "seq_id": 7,
+            "abbr_en": "",
+            "channel_id": "8",
+            "name_en": ""
+        },
+        {
+            "name": "轻音乐",
+            "seq_id": 8,
+            "abbr_en": "",
+            "channel_id": "9",
+            "name_en": ""
+        },
+        {
+            "name": "原声",
+            "seq_id": 9,
+            "abbr_en": "",
+            "channel_id": "10",
+            "name_en": ""
+        },
+        {
+            "name": "爵士",
+            "seq_id": 10,
+            "abbr_en": "",
+            "channel_id": "13",
+            "name_en": ""
+        },
+        {
+            "name": "电子",
+            "seq_id": 11,
+            "abbr_en": "",
+            "channel_id": "14",
+            "name_en": ""
+        },
+        {
+            "name": "说唱",
+            "seq_id": 12,
+            "abbr_en": "",
+            "channel_id": "15",
+            "name_en": ""
+        },
+        {
+            "name": "R&B ",
+            "seq_id": 13,
+            "abbr_en": "",
+            "channel_id": "16",
+            "name_en": ""
+        },
+        {
+            "name": "日语",
+            "seq_id": 14,
+            "abbr_en": "",
+            "channel_id": "17",
+            "name_en": ""
+        },
+        {
+            "name": "韩语",
+            "seq_id": 15,
+            "abbr_en": "",
+            "channel_id": "18",
+            "name_en": ""
+        },
+        {
+            "name": "女声",
+            "seq_id": 16,
+            "abbr_en": "",
+            "channel_id": "20",
+            "name_en": ""
+        },
+        {
+            "name": "法语",
+            "seq_id": 17,
+            "abbr_en": "",
+            "channel_id": "22",
+            "name_en": ""
+        },
+        {
+            "name": "凌渡 · 动力兆赫",
+            "seq_id": 18,
+            "abbr_en": "",
+            "channel_id": "235",
+            "name_en": ""
+        },
+        {
+            "name": "古典",
+            "seq_id": 19,
+            "abbr_en": "",
+            "channel_id": "27",
+            "name_en": ""
+        },
+        {
+            "name": "动漫",
+            "seq_id": 20,
+            "abbr_en": "",
+            "channel_id": "28",
+            "name_en": ""
+        },
+        {
+            "name": "咖啡馆",
+            "seq_id": 21,
+            "abbr_en": "",
+            "channel_id": "32",
+            "name_en": ""
+        },
+        {
+            "name": "圣诞",
+            "seq_id": 22,
+            "abbr_en": "",
+            "channel_id": "170",
+            "name_en": ""
+        },
+        {
+            "name": "Sonos 乐满人家",
+            "seq_id": 23,
+            "abbr_en": "",
+            "channel_id": "199",
+            "name_en": ""
+        },
+        {
+            "name": "豆瓣好歌曲",
+            "seq_id": 24,
+            "abbr_en": "",
+            "channel_id": "179",
+            "name_en": ""
+        },
+        {
+            "name": "世界音乐",
+            "seq_id": 25,
+            "abbr_en": "",
+            "channel_id": "187",
+            "name_en": ""
+        },
+        {
+            "name": "布鲁斯",
+            "seq_id": 26,
+            "abbr_en": "",
+            "channel_id": "188",
+            "name_en": ""
+        },
+        {
+            "name": "新歌",
+            "seq_id": 27,
+            "abbr_en": "",
+            "channel_id": "61",
+            "name_en": ""
+        },
+        {
+            "name": "雷鬼",
+            "seq_id": 28,
+            "abbr_en": "",
+            "channel_id": "190",
+            "name_en": ""
+        },
+        {
+            "name": "新青年",
+            "seq_id": 29,
+            "abbr_en": "",
+            "channel_id": "196",
+            "name_en": ""
+        },
+        {
+            "name": "世界杯",
+            "seq_id": 30,
+            "abbr_en": "",
+            "channel_id": "201",
+            "name_en": ""
+        },
+        {
+            "name": "甲壳虫音乐",
+            "seq_id": 31,
+            "abbr_en": "",
+            "channel_id": "202",
+            "name_en": ""
+        },
+        {
+            "name": "小清新",
+            "seq_id": 32,
+            "abbr_en": "",
+            "channel_id": "76",
+            "name_en": ""
+        },
+        {
+            "name": "Easy ",
+            "seq_id": 33,
+            "abbr_en": "",
+            "channel_id": "77",
+            "name_en": ""
+        },
+        {
+            "name": "91.1 ",
+            "seq_id": 34,
+            "abbr_en": "",
+            "channel_id": "78",
+            "name_en": ""
+        },
+        {
+            "name": "一加生活",
+            "seq_id": 35,
+            "abbr_en": "",
+            "channel_id": "211",
+            "name_en": ""
+        },
+        {
+            "name": "东风雪铁龙C3-XR",
+            "seq_id": 36,
+            "abbr_en": "",
+            "channel_id": "217",
+            "name_en": ""
+        },
+        {
+            "name": "奥迪音乐季 声声中国情",
+            "seq_id": 37,
+            "abbr_en": "",
+            "channel_id": "218",
+            "name_en": ""
+        },
+        {
+            "name": "一加手机·叛逆者的坚持",
+            "seq_id": 38,
+            "abbr_en": "",
+            "channel_id": "219",
+            "name_en": ""
+        },
+        {
+            "name": "Miracle兰蔻奇迹香水",
+            "seq_id": 39,
+            "abbr_en": "",
+            "channel_id": "220",
+            "name_en": ""
+        },
+        {
+            "name": "玉白•洁净纯声",
+            "seq_id": 40,
+            "abbr_en": "",
+            "channel_id": "221",
+            "name_en": ""
+        },
+        {
+            "name": "宝红•激昂民谣",
+            "seq_id": 41,
+            "abbr_en": "",
+            "channel_id": "222",
+            "name_en": ""
+        },
+        {
+            "name": "智蓝•优雅爵士",
+            "seq_id": 42,
+            "abbr_en": "",
+            "channel_id": "224",
+            "name_en": ""
+        },
+        {
+            "name": "怦然心动 林肯赫兹",
+            "seq_id": 43,
+            "abbr_en": "",
+            "channel_id": "225",
+            "name_en": ""
+        },
+        {
+            "name": "美宝莲CC不粉饰的美",
+            "seq_id": 44,
+            "abbr_en": "",
+            "channel_id": "226",
+            "name_en": ""
+        },
+        {
+            "name": "CONVERSE上海制噪",
+            "seq_id": 45,
+            "abbr_en": "",
+            "channel_id": "228",
+            "name_en": ""
+        },
+        {
+            "name": "统一方便面·芒果在里面",
+            "seq_id": 46,
+            "abbr_en": "",
+            "channel_id": "229",
+            "name_en": ""
+        },
+        {
+            "name": "BMW X1让自由发声",
+            "seq_id": 47,
+            "abbr_en": "",
+            "channel_id": "230",
+            "name_en": ""
+        },
+        {
+            "name": "“砖”属音乐",
+            "seq_id": 48,
+            "abbr_en": "",
+            "channel_id": "145",
+            "name_en": ""
+        },
+        {
+            "name": "Pop",
+            "seq_id": 49,
+            "abbr_en": "",
+            "channel_id": "194",
+            "name_en": ""
+        },
+        {
+            "name": "凌渡 · 热力兆赫",
+            "seq_id": 50,
+            "abbr_en": "",
+            "channel_id": "234",
+            "name_en": ""
+        },
+        {
+            "name": "Lexus NX 乐见未知",
+            "seq_id": 51,
+            "abbr_en": "",
+            "channel_id": "231",
+            "name_en": ""
+        },
+        {
+            "name": "拉丁",
+            "seq_id": 52,
+            "abbr_en": "",
+            "channel_id": "189",
+            "name_en": ""
+        },
+        {
+            "name": "凌渡 · 魅力兆赫",
+            "seq_id": 53,
+            "abbr_en": "",
+            "channel_id": "233",
+            "name_en": ""
+        }
+    ]
+}
+{
+    "user_id": "19769329",
+    "err": "ok",
+    "token": "56861dac33",
+    "expire": "1440396643",
+    "r": 0,
+    "user_name": "st.sail",
+    "email": "gule10@163.com"
+}
+curl -i --header "Host: www.douban.com
+\r\nConnection: keep-alive
+\r\nCache-Control: max-age=0
+\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+\r\nAccept-Encoding: gzip, deflate, sdch
+\r\nAccept-Language: en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4
+\r\nCookie: bid=\"S715ikVyIRQ\"; ll=\"118201\"" --cookie ./cookie.txt --user-agent "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.3 Safari/537.36"  http://www.douban.com/j/app/radio/people?app_name=radio_desktop_win&version=101&user_id=19769329&expire=1440396643&token=56861dac33&channel=189&sid=0&type=n&h=&kbps=100
+
+
+curl -d "version=100&user_id=19769329&expire=1440396643&token=56861dac33&channel=189&sid=0&type=n&h=&kbps=100&app_name=radio_desktop_win" http://www.douban.com/j/app/radio/people
+
+
+http://api.douban.com/v2/fm/lyric?ssid=54ff&sid=641459

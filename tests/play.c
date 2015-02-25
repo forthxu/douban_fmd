@@ -5,6 +5,15 @@
 // gcc -O2 -o play play.c -lmpg123 -lao
 // ./play p574399.mp3
 // http://hzqtc.github.io/2012/05/play-mp3-with-libmpg123-and-libao.html
+/*
+amixer sset Master 10%-
+amixer sset Master 0dB+
+
+amixer set Master 80%
+amixer set Master unmute
+amixer set PCM 80%
+amixer set PCM unmute
+*/
 int main(int argc, char *argv[])
 {
     mpg123_handle *mh;

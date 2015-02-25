@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <string.h>
 
+//两边去除空格(' ')、水平定位字符('\t')、归位键('\r')、换行('\n')、垂直定位字符('\v')或翻页('\f')
 char* trim(char *str)
 {
     char *left = str;
@@ -29,6 +30,7 @@ char* trim(char *str)
     return str;
 }
 
+//返回分隔符后的字符串
 char* split(char *str, char delimiter)
 {
     char *p = strchr(str, delimiter);
@@ -39,6 +41,7 @@ char* split(char *str, char delimiter)
     return NULL;
 }
 
+//对指定字符转义
 // this function will return a new alloced string
 // with all escape chars prefixed with '\\'
 char* escape(const char *str, char escape) {

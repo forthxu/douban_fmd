@@ -1,6 +1,6 @@
 #! /bin/sh
 
-wget -q -O - --post-data="email=doubantucao@gmail.com&password=doubantucao&app_name=radio_desktop_win&version=100" "http://www.douban.com/j/app/login" | python -mjson.tool > /tmp/login.json
+wget -q -O - --post-data="email=gule10@163.com&password=19870623&app_name=radio_desktop_win&version=100" "http://www.douban.com/j/app/login" | python -mjson.tool > /tmp/login.json
 
 echo "[DoubanFM]
 channel = 0"

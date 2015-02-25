@@ -227,6 +227,7 @@ int start_fmd(fm_playlist_config_t *playlist_conf, fm_player_config_t *player_co
         perror("Open audio output");
         return 1;
     }
+	
     install_player_end_handler(&app.player);
 
     fm_playlist_init(&app.playlist, playlist_conf);

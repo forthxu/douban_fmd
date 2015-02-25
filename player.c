@@ -93,7 +93,7 @@ int fm_player_open(fm_player_t *pl, fm_player_config_t *config)
     ao_fmt.channels = config->channels;
     ao_fmt.bits = mpg123_encsize(config->encoding) * 8;
     ao_fmt.byte_format = AO_FMT_NATIVE;
-    // ao_fmt.matrix = 0;
+    ao_fmt.matrix = 0;
 
     int driver = ao_driver_id(config->driver);
     if (driver == -1) {
@@ -103,6 +103,9 @@ int fm_player_open(fm_player_t *pl, fm_player_config_t *config)
     ao_info *driver_info = ao_driver_info(driver);
     printf("Player audio driver: %s\n", driver_info->name);
     printf("Player sample rate: %d Hz\n", pl->config.rate);
+	
+	printf("Player audio dev: %s\n", config->dev);
+	
     ao_option *options = NULL;
     if (config->dev[0] != '\0') {
         ao_append_option(&options, "dev", config->dev);
@@ -150,6 +153,7 @@ void fm_player_set_url(fm_player_t *pl, const char *url)
     curl_easy_setopt(pl->curl, CURLOPT_COOKIEFILE, "/tmp/cookie.txt");
     curl_easy_setopt(pl->curl, CURLOPT_COOKIE, "/tmp/cookie.txt");
     curl_easy_setopt(pl->curl, CURLOPT_COOKIEJAR, "/tmp/cookie.txt");
+	curl_easy_setopt(pl->curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.3 Safari/537.36");
     
     curl_easy_setopt(pl->curl, CURLOPT_URL, url);
 }

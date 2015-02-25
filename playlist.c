@@ -1,7 +1,8 @@
 #include "playlist.h"
 #include "util.h"
 
-#include <json/json.h>
+#include <json-c/json.h>
+// #include <json-c/json.h>//新版json
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,7 +11,7 @@
 #define JSON_HAS_GET_EX 1
 
 typedef struct {
-    char data[8192];
+    char data[8192];//2^13
     size_t length;
 } buffer_t;
 
@@ -86,12 +87,14 @@ static void fm_playlist_history_add(fm_playlist_t *pl, fm_song_t *song, char sta
     fm_history_t *h = pl->history;
     fm_history_t *last = NULL;
     fm_history_t *penult = NULL;
+	// 1 2 3 4 5
     while (h) {
         len++;
         penult = last;
         last = h;
         h = h->next;
     }
+	// last=5 penult=4 h=null
 
     if (len < max_hist) {   // append new history item
         h = (fm_history_t*) malloc(sizeof(fm_history_t));
@@ -101,9 +104,9 @@ static void fm_playlist_history_add(fm_playlist_t *pl, fm_song_t *song, char sta
         pl->history = h;
     }
     else {                  // reuse the last history item and move it to the head
-        last->sid = song->sid;
+        last->sid = song->sid;//reuse again didn't need free malloc
         last->state = state;
-        penult->next = NULL;// make penult to new last item
+        penult->next = NULL;// make penult to new last item //del 5
         last->next = pl->history;
         pl->history = last;
     }
@@ -120,6 +123,7 @@ static void fm_playlist_hisotry_clear(fm_playlist_t *pl)
     }
 }
 
+//返回历史播放记录
 static const char* fm_playlist_history_str(fm_playlist_t *pl)
 {
     static char buffer[1024];
@@ -245,6 +249,7 @@ static size_t drop_buffer(char *ptr, size_t size, size_t nmemb, void *userp)
 
 static struct json_object* fm_playlist_send_long_report(fm_playlist_t *pl, int sid, char act)
 {
+	// https://github.com/zonyitoo/doubanfm-qt/wiki/%E8%B1%86%E7%93%A3FM-API
     static buffer_t curl_buffer;
     char url[1024];
     printf("Playlist send long report: %d:%c\n", sid, act);
@@ -252,7 +257,7 @@ static struct json_object* fm_playlist_send_long_report(fm_playlist_t *pl, int s
             pl->api, pl->app_name, pl->version, pl->config.uid, pl->config.expire, pl->config.token, pl->config.channel,
             sid, act, fm_playlist_history_str(pl), pl->config.kbps);
     printf("Playlist request: %s\n", url);
-    sprintf(url,"http://douban.fm/j/mine/playlist?type=n&sid=&pt=0.0&channel=1&from=radio&r=411ef8fc02");
+    //sprintf(url,"http://douban.fm/j/mine/playlist?type=n&sid=&pt=0.0&channel=1&from=radio&r=411ef8fc02");
 
     memset(curl_buffer.data, 0, sizeof(curl_buffer.data));
     curl_buffer.length = 0;
@@ -261,11 +266,12 @@ static struct json_object* fm_playlist_send_long_report(fm_playlist_t *pl, int s
     curl_easy_setopt(pl->curl, CURLOPT_WRITEFUNCTION, append_to_buffer);
     curl_easy_setopt(pl->curl, CURLOPT_WRITEDATA, &curl_buffer);
     curl_easy_setopt(pl->curl, CURLOPT_COOKIEFILE, "/tmp/cookie.txt");
-    curl_easy_setopt(pl->curl, CURLOPT_COOKIE, "/tmp/cookie.txt");
+    //curl_easy_setopt(pl->curl, CURLOPT_COOKIE, "/tmp/cookie.txt");
     curl_easy_setopt(pl->curl, CURLOPT_COOKIEJAR, "/tmp/cookie.txt");
+	curl_easy_setopt(pl->curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.3 Safari/537.36");
     curl_easy_perform(pl->curl);
     //forthxu
-    // printf("%s\n",curl_buffer.data);
+    printf("%s\n",curl_buffer.data);
     return json_tokener_parse(curl_buffer.data);
 }
 
@@ -281,8 +287,9 @@ static void fm_playlist_send_short_report(fm_playlist_t *pl, int sid, char act)
     curl_easy_setopt(pl->curl, CURLOPT_URL, url);
     curl_easy_setopt(pl->curl, CURLOPT_WRITEFUNCTION, drop_buffer);
     curl_easy_setopt(pl->curl, CURLOPT_COOKIEFILE, "/tmp/cookie.txt");
-    curl_easy_setopt(pl->curl, CURLOPT_COOKIE, "/tmp/cookie.txt");
+    //curl_easy_setopt(pl->curl, CURLOPT_COOKIE, "/tmp/cookie.txt");
     curl_easy_setopt(pl->curl, CURLOPT_COOKIEJAR, "/tmp/cookie.txt");
+	curl_easy_setopt(pl->curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.3 Safari/537.36");
     curl_easy_setopt(pl->curl, CURLOPT_WRITEDATA, NULL);
     curl_easy_perform(pl->curl);
 }

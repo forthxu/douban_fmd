@@ -1,0 +1,4 @@
+#!/bin/bash
+curl -i --header "Host: www.douban.com" --header "Connection: keep-alive" --header "Cache-Control: max-age=0" --header "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" --header "Accept-Encoding: gzip, deflate, sdch" --header "Accept-Language: en-US,en;q=0.8,zh-CN;q=0.6,zh;q=0.4" --header "Cookie: bid=\"S715ikVyIRQ\"; ll=\"118201\"" --cookie ./cookie.txt --user-agent "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.3 Safari/537.36"  http://www.douban.com/j/app/radio/people?version=100&user_id=19769329&expire=1440396643&token=56861dac33&channel=189&sid=0&type=n&h=&kbps=100&app_name=radio_desktop_win
+
+echo "\n"
